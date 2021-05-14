@@ -55,28 +55,27 @@ public class ChatHudListenerMixin {
             }
 
             if (SkyblockerConfig.get().messages.hideAbility &&
-                    msg.contains("This ability is currently on cooldown for ") ||
-                    msg.contains("No more charges, next one in ") ||
-                    msg.contains("This ability is on cooldown for "))
+                    msg.matches("^This ability is( currently)? on cooldown for [0-9.]+( more )?s(econds?)?\\.$") ||
+                    msg.matches("^No more charges, next one in [0-9.]+s!$"))
                 ci.cancel();
 
             if (SkyblockerConfig.get().messages.hideHeal &&
-                    msg.contains("You healed ") &&
-                    msg.contains(" health!") || msg.contains(" healed you for "))
+                    msg.matches("^You healed yourself for [0-9,.]+ health!$") ||
+                    msg.matches("^[a-zA-Z0-9_]{1,16} healed you for [0-9,.]+ health!$"))
                 ci.cancel();
 
             if (SkyblockerConfig.get().messages.hideAOTE &&
-                    msg.contains("There are blocks in the way!"))
+                    msg.matches("^There are blocks in the way!$"))
                 ci.cancel();
 
             if (SkyblockerConfig.get().messages.hideImplosion &&
-                    msg.contains("Your Implosion hit "))
+                    msg.matches("^Your Implosion hit [0-9]+ enem(y|ies) for [0-9,.]+ damage\\.$"))
                 ci.cancel();
 
             if (SkyblockerConfig.get().messages.hideMoltenWave &&
-                    msg.contains("Your Molten Wave hit "))
+                    msg.contains("^Your Molten Wave hit [0-9]+ enem(y|(ies)) for [0-9,.]+ damage\\.$"))
                 ci.cancel();
         }
     }
-
 }
+
