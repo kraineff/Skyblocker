@@ -18,9 +18,8 @@
   "text.autoconfig.skyblocker.option.locations.dwarvenMines.solvePuzzler": "Solve Puzzler Puzzle",
 
   "text.autoconfig.skyblocker.category.messages": "Messages",
-  "text.autoconfig.skyblocker.option.messages.hideAbility": "Hide Ability Cooldown",
-  "text.autoconfig.skyblocker.option.messages.hideHeal": "Hide Heal Messages",
-  "text.autoconfig.skyblocker.option.messages.hideAOTE": "Hide AOTE Messages",
-  "text.autoconfig.skyblocker.option.messages.hideImplosion": "Hide Implosion Message",
-  "text.autoconfig.skyblocker.option.messages.hideMoltenWave": "Hide Molten Wave Message"
+  "text.autoconfig.skyblocker.option.messages.abilityCooldown.enabled": "Hide Cooldown Messages",
+  "text.autoconfig.skyblocker.option.messages.healing.enabled": "Hide Heal Messages",
+  "text.autoconfig.skyblocker.option.messages.blocksInTheWay.enabled": "Hide AotE Messages",
+  "text.autoconfig.skyblocker.option.messages.aoeDamage.enabled": "Hide AoE Damage Messages"
 }

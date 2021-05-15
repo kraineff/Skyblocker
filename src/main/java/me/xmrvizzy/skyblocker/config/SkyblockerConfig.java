@@ -8,6 +8,7 @@ import me.sargunvohra.mcmods.autoconfig1u.serializer.GsonConfigSerializer;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.lang.reflect.Field;
 
 @Config(name = "skyblocker")
 public class SkyblockerConfig implements ConfigData {
@@ -61,11 +62,32 @@ public class SkyblockerConfig implements ConfigData {
     }
 
     public static class Messages {
-        public boolean hideAbility = false;
-        public boolean hideHeal = false;
-        public boolean hideAOTE = false;
-        public boolean hideImplosion = false;
-        public boolean hideMoltenWave = false;
+	    @ConfigEntry.Gui.TransitiveObject
+	    public ChatFilter blocksInTheWay;
+	    @ConfigEntry.Gui.TransitiveObject
+	    public ChatFilter abilityCooldown;
+	    @ConfigEntry.Gui.TransitiveObject
+	    public ChatFilter aoeDamage;
+	    @ConfigEntry.Gui.TransitiveObject
+	    public ChatFilter healing;
+	    public Messages() {
+		    String number = "[0-9]{1-3}(,[0-9]{3})*(.[0-9])?";
+		    blocksInTheWay = new ChatFilter("^There are blocks in the way!$");
+		    abilityCooldown = new ChatFilter("^This ability is( currently)? on cooldown for " + number + "( more )?s(econds?)?\\.$|^No more charges, next one in " + number + "s!$");
+		    aoeDamage = new ChatFilter("^Your [a-zA-Z ]+ hit " + number + " enem(y|ies) for  " + number + " damage\\.$");
+		    healing = new ChatFilter("^(You|[a-zA-Z0-9_]{1,16}) healed you(rself)? for " + number + " health!$");
+	    }
+	    public boolean shouldFilter(String msg) {
+		for(Field f : this.getClass().getFields()) {
+		    try {
+			if(f.get(this) instanceof ChatFilter && ((ChatFilter)f.get(this)).shouldFilter(msg))
+			    return true;
+		    }
+		    catch(IllegalAccessException e) {
+		    }
+		}
+		return false;
+	    }
     }
 
     public static void init() {
